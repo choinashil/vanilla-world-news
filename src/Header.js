@@ -10,7 +10,7 @@ class Header extends Component {
     render() {
         // console.log('header에서 this: ',this);
         return (
-            <div className="header">
+            <header className="header">
                 <Input 
                     inputKeyword={this.props.inputKeyword}
                     selectStartDate={this.props.selectStartDate}
@@ -19,7 +19,7 @@ class Header extends Component {
                     clickSearchIcon={this.props.clickSearchIcon}
                 />
                 <Title />
-            </div>
+            </header>
         );
     }
 }
@@ -90,14 +90,16 @@ class Input extends Component {
                     <input 
                         type="date" 
                         id="from" 
-                        onChange={this.setStartDate.bind(this)} />
+                        onChange={this.setStartDate.bind(this)} 
+                    />
                     <p>to</p>
                     <input 
                         type="date" 
                         id="to" 
                         max={today} 
                         value={today} 
-                        onChange={this.setEndDate.bind(this)} />
+                        onChange={this.setEndDate.bind(this)} 
+                    />
                 </div>
             </div>
         );

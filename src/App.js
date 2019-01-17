@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 
-import './App.scss';
-import Header from './Header';
 import Filters from './Filters';
+import Header from './Header';
+import Section from './Section';
+
+import './App.scss';
 import './Header.scss';
+import './_utils.scss';
 
 
 class App extends Component {
@@ -15,7 +18,8 @@ class App extends Component {
             keyword: '',
             dateFrom: '2019-01-03',
             dateTo: new Date().toJSON().slice(0, 10),
-            selectedSources: []
+            selectedSources: [],
+
         };
     }
 
@@ -36,12 +40,10 @@ class App extends Component {
         this.setState({
             keyword
         });
-        // this.requestData(keyword);
     }
 
     setSelectSources(source) {
         const index = this.state.selectedSources.indexOf(source);
-        // console.log('없으면 -1, 있으면 인덱스', index);
 
         if (index === -1) {
             this.setState(state => {
@@ -72,11 +74,6 @@ class App extends Component {
             dateTo: date
         })
     }
-
-    // requestData(keyword) {
-    //     Axios.get(`https://newsapi.org/v2/everything?q=${keyword}&from=2019-12-12&to=2019-01-15&sortBy=popularity&apiKey=18f951d779cc4afdb0207b7ae7a583f3`)
-    //     .then(data => console.log(data));
-    // }
 
     getArticleData() {
         const articles = this.requestArticleData();
@@ -120,6 +117,7 @@ class App extends Component {
                         pressEnter={this.getArticleData.bind(this)}
                         clickSearchIcon={this.getArticleData.bind(this)}
                     />
+                    <Section />
                 </div>
             </div>
         );

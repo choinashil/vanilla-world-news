@@ -5,17 +5,13 @@
     // flex-direction: column;
     justify-content: flex-end;
     flex-wrap: wrap;
-    width: 25vw;
+    width: 30%;
     height: 100vh;
     border-right: $border;
     padding-right: 5px;
     overflow-y: scroll;
-    // position: absolute;
-    // left: 0;
-    // top: 100px;
 
-    // align-self: flex-start;
-    // border: 1px solid blue;
+
     > div {
         // border: 1px solid orange;
     }
