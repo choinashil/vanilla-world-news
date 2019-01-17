@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Filters.scss';
+import './_utils.scss';
 
 class Filters extends Component {
     constructor(props) {
@@ -10,7 +11,12 @@ class Filters extends Component {
     render() {
         return (
             <div className="filters">
-                {this.props.sources.map(source => <SourceList key={source.id} name={source.name} />)}
+                <div>
+                    <i className="fas fa-angle-double-left"></i>
+                </div>
+                <div>
+                    {this.props.sources.map(source => <SourceList key={source.id} name={source.name} id={source.id} selectSources={this.props.selectSources} />)}
+                </div>
             </div>
         );
     }
@@ -19,37 +25,28 @@ class Filters extends Component {
 class SourceList extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            selected: false
+        };
     }
 
-    _selectSource(e) {
-        console.log(e.target);
-        e.target.classList.add('selected');
+    selectSource(e) {
+        this.setState({
+            selected: !this.state.selected
+        })
+
+        this.props.selectSources(this.props.id);
     }
 
     render() {
         return (
-            <div onClick={this._selectSource}>{this.props.name}</div>
+            <div 
+                className={this.state.selected ? 'source selected' : 'source'} 
+                onClick={this.selectSource.bind(this)}>{this.props.name}
+            </div>
         );
     }
 }
-
-// function Filters({sources}) {
-//     return (
-//         <div className="filters">
-//             {sources.map(source => <SourceList key={source.id} name={source.name} />)}
-//         </div>
-//     );
-// }
-  
-// function SourceList({name}) {
-//     return (
-//         <div>{name}</div>
-//     );
-// }
-
-
-
 
 
 export default Filters;

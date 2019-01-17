@@ -1,0 +1,137 @@
+@import '_utils.scss';
+
+/*
+font-family: 'Adamina', serif;
+font-family: 'Unna', serif;
+font-family: 'Playfair Display', serif;
+*/
+
+.header {
+    font-family: 'Unna', serif;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // border: 1px solid salmon;
+    font-size: 45px;
+    > div {
+        width: 90%;
+        border-bottom: $border;
+    }
+}
+
+.input {
+    // border: 1px solid green;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0;
+    > div {
+        // border: 1px solid orange;
+    }
+    .filters-btn-wrapper {
+        // border: 1px solid pink;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: $bk7;
+        padding-top: 17px;
+        // border-right: $border;
+        > div:nth-child(1) {
+            // border: 1px solid red;
+            width: 20px;
+            margin-right: 10px;
+            div {
+                height: 2px;
+                background-color: $bk6;
+                margin-bottom: 4px;
+            }
+            div:nth-child(1) {
+                width: 10px;
+            }
+            div:nth-child(2) {
+                width: 17px;
+            }
+            div:nth-child(3) {
+                width: 24px;
+                margin-bottom: 0;
+            }
+        }
+        > div:nth-child(2) {
+            font-size: 13px;
+        }
+        &:hover > div:nth-child(1) > div {
+            transition: width .2s;
+        }
+        &:hover > div:nth-child(1) > div:nth-child(1) {
+            width: 24px;
+        }
+        &:hover > div:nth-child(1) > div:nth-child(2) {
+            width: 17px;
+        }
+        &:hover > div:nth-child(1) > div:nth-child(3) {
+            width: 10px;
+        }
+    }
+    .input-wrapper {
+        // border: 1px solid green;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: $border;
+        padding: 5px 10px;
+        input {
+            width: 250px;
+            height: 20px;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            padding: 5px;
+            font-family: 'Adamina', serif;
+            color: $bk6;
+            text-align: center;
+            transform: translateY(5px);
+        }        
+        i {
+            font-size: 15px;
+            // border: 1px solid red;
+            margin: 0 10px;
+            color: $bk6;
+            transform: translateY(7px);
+            cursor: pointer;
+        }
+    }
+    .date-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding-top: 15px;
+        // border: 1px solid red;
+        p {
+            // border: 1px solid orange;
+            font-size: 12px;
+            padding: 7px 10px 5px 10px;
+            color: $bk7;
+            border-bottom: $border;
+        }
+        input {
+            width: 120px;
+            height: 25px;
+            border: none;
+            outline: none;
+            border-bottom: $border;
+            // text-align: center;
+            margin-right: 15px;
+            color: $bk7;
+            font-family: 'Adamina', serif;
+        }
+    }
+}
+
+.title {
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    padding: 25px 0;
+    color: $bk8;
+}

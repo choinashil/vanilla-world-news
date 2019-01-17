@@ -1,0 +1,17 @@
+.app {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    // background-color: powderblue;
+    .content {
+        // border: 1px solid red;
+        width: 90vw;
+    }
+    // .content-wide {
+    //     width: 90vw;
+    // }
+    .content-narrow {
+        width: 60vw;
+    }
+  }
+  
