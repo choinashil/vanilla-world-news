@@ -8,7 +8,6 @@ import Section from './Section';
 import './App.scss';
 import './Header.scss';
 import './_utils.scss';
-// import { try } from 'q';
 
 
 class App extends Component {
@@ -17,11 +16,11 @@ class App extends Component {
         super(props);
         this.state = {
             sources: '',
-            keyword: '',
+            keyword: 'surfing',
             dateFrom: '',
             dateTo: '',
             selectedSources: [],
-            articles: []
+            articles: [],
         };
     }
 
@@ -79,13 +78,22 @@ class App extends Component {
 
     setArticles(articles) {
         this.setState(state => {
-            return {articles: this.state.articles.concat(articles)};
+            return {articles: state.articles.concat(articles)};
         })
     }
 
     async getArticleData() {
         try {
             const data = await this.requestArticleData();
+            data.data.articles.map(article => {
+                if (article.author) {
+                    article.writtenBy = `${article.author} / ${article.source.name}`;
+                } else {
+                    article.writtenBy = article.source.name;
+                }
+                return article.publishedAt = article.publishedAt.slice(0, 10).replace(/-/g, '. ');
+            });
+
             if (data.data.totalResults) {
                 this.setArticles(data.data.articles);
             } else {
@@ -98,7 +106,7 @@ class App extends Component {
 
     requestArticleData(page = 1) {
         let requirements = 0;
-        let url = `https://newsapi.org/v2/everything?&from=${this.state.dateFrom}&to=${this.state.dateTo}&sortBy=popularity&pageSize=20&page=${page}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`;
+        let url = `https://newsapi.org/v2/everything?&from=${this.state.dateFrom}&to=${this.state.dateTo}&sortBy=popularity&pageSize=30&page=${page}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`;
 
         if (this.state.keyword) {
             requirements++;
@@ -110,7 +118,6 @@ class App extends Component {
         }
 
         if (requirements) {
-            console.log(url)
             return Axios.get(url);
         } else {
             alert('키워드를 입력하거나 신문사를 선택해주세요');
@@ -126,7 +133,6 @@ class App extends Component {
     }
 
     render() {
-        // console.log('from', this.state.dateFrom, 'to',this.state.dateTo);
         return (
             <div className="app">
                 {this.state.sources ? this.renderFilters() : ''}
@@ -147,11 +153,12 @@ class App extends Component {
     }
 
     componentDidUpdate() {
+        // console.log(this.state.articles);
         // console.log('리렌더된 결과', this.state.selectedSources);
         // console.log('키워드', this.state.keyword);
         // console.log('이 날짜부터',this.state.dateFrom);
         // console.log('이 날짜까지',this.state.dateTo);
-        console.log('state에 저장된 articles', this.state.articles);
+        // console.log('state에 저장된 articles', this.state.articles);
     }
 }
 

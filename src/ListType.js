@@ -13,13 +13,12 @@ class ListType extends Component {
     render() {
         return(
             <div className="list-wrapper">
-                {/* {this.props.sources.map(source => <SourceList key={source.id} name={source.name} id={source.id} selectSources={this.props.selectSources} />)} */}
-
-                {console.log(this.props.articles)}
-
-                {this.props.articles.map(article => <List key={article.title} title={article.title}/>)}
-
-
+                {this.props.articles.map((article, index) => <List 
+                    key={index} 
+                    title={article.title} 
+                    writtenBy={article.writtenBy} 
+                    date={article.publishedAt} 
+                />)}
             </div>
         );
     }
@@ -35,7 +34,9 @@ class List extends Component {
     render() {
         return (
             <div className="list">
-                {this.props.title}
+                <div>{this.props.title}</div>
+                <div>{this.props.writtenBy}</div>
+                <div>{this.props.date}</div>
             </div>
         );
     }

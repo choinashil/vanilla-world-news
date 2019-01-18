@@ -1,0 +1,27 @@
+@import '_utils.scss';
+
+
+.card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 90%;
+    // background-color: pink;
+    font-family: 'Adamina', serif;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    border: $border;
+    margin-bottom: 15px;
+    padding: 10px;
+    cursor: pointer;
+
+    img {
+        width: 90%;
+    }
+}
+

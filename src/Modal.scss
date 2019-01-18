@@ -1,0 +1,16 @@
+@import '_utils.scss';
+
+.modal-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: $bk8;
+}
+
+.modal {
+    width: 500px;
+    height: 350px;
+    background-color: pink;
+}

@@ -1,7 +1,37 @@
 @import '_utils.scss';
 
 .list-wrapper {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
     width: 90%;
+    // height: 100%;
+    font-family: 'Adamina', serif;
     // height: 100px;
-    // background-color: pink;
+    // background-color: powderblue;
+}
+
+.list {
+    width: 60%;
+    border-bottom: $border;
+    padding: 30px;
+    cursor: pointer;
+    div {
+        // border: 1px solid brown;
+    }
+    div:nth-child(1) {
+        font-size: 16px;
+        padding-bottom: 5px;
+        color: $bk8;
+    }
+    div:nth-child(2) {
+        font-size: 12px;
+        padding-bottom: 2px;
+        color: $bk6;
+    }
+    div:nth-child(3) {
+        font-size: 12px;
+        color: $bk6;
+    }
 }
