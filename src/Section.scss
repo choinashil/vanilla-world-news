@@ -1,7 +1,11 @@
 @import '_utils.scss';
 
 .section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    // background-color: blue;
+    height: 50px;
+
 }
 

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import ListType from './ListType';
+
 import './Section.scss';
 import './_utils.scss';
 
@@ -11,11 +14,12 @@ class Section extends Component {
     render() {
         return (
             <section className="section">
-                {/* <div>asdfasdf</div> */}
+                <ListType articles={this.props.articles}/>
             </section>
         );
     }
 }
+
 
 
 export default Section;

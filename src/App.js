@@ -8,18 +8,20 @@ import Section from './Section';
 import './App.scss';
 import './Header.scss';
 import './_utils.scss';
+// import { try } from 'q';
 
 
 class App extends Component {
+    // new Date().toJSON().slice(0, 10)
     constructor(props) {
         super(props);
         this.state = {
             sources: '',
             keyword: '',
-            dateFrom: '2019-01-03',
-            dateTo: new Date().toJSON().slice(0, 10),
+            dateFrom: '',
+            dateTo: '',
             selectedSources: [],
-
+            articles: []
         };
     }
 
@@ -75,30 +77,49 @@ class App extends Component {
         })
     }
 
-    getArticleData() {
-        const articles = this.requestArticleData();
-        console.log(articles);
+    setArticles(articles) {
+        this.setState(state => {
+            return {articles: this.state.articles.concat(articles)};
+        })
     }
 
-    async requestArticleData() {
-        if (this.state.keyword && this.state.selectedSources.length) {
-            return await Axios.get(`https://newsapi.org/v2/everything?q=${this.state.keyword}&sources=${this.state.selectedSources.join()}&from=${this.state.dateFrom}&to=${this.state.dateTo}&sortBy=popularity&pageSize=20&page={1}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`);
-        } else {
-            if (this.state.keyword) {
-                return await Axios.get(`https://newsapi.org/v2/everything?q=${this.state.keyword}&from=${this.state.dateFrom}&to=${this.state.dateTo}&sortBy=popularity&pageSize=20&page={1}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`);
-
-            } else if (this.state.selectedSources.length) {
-                return await Axios.get(`https://newsapi.org/v2/everything?sources=${this.state.selectedSources.join()}&from=${this.state.dateFrom}&to=${this.state.dateTo}&sortBy=popularity&pageSize=20&page={1}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`);
-
+    async getArticleData() {
+        try {
+            const data = await this.requestArticleData();
+            if (data.data.totalResults) {
+                this.setArticles(data.data.articles);
             } else {
-                alert('키워드를 입력하거나 신문사를 선택해주세요');
+                alert('검색 결과가 없습니다');
             }
+        } catch(err) {
+            console.error(err);
+        }
+    }
+
+    requestArticleData(page = 1) {
+        let requirements = 0;
+        let url = `https://newsapi.org/v2/everything?&from=${this.state.dateFrom}&to=${this.state.dateTo}&sortBy=popularity&pageSize=20&page=${page}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`;
+
+        if (this.state.keyword) {
+            requirements++;
+            url += `&q=${this.state.keyword}`;
+        }
+        if (this.state.selectedSources.length) {
+            requirements++;
+            url += `&sources=${this.state.selectedSources.join()}`;
+        }
+
+        if (requirements) {
+            console.log(url)
+            return Axios.get(url);
+        } else {
+            alert('키워드를 입력하거나 신문사를 선택해주세요');
         }
     }
 
     renderFilters() {
         return <Filters 
-            hidden={this.state.hiddenFilters} 
+            // hidden={this.state.hiddenFilters} 
             sources={this.state.sources} 
             selectSources={this.setSelectSources.bind(this)} 
         />
@@ -108,7 +129,7 @@ class App extends Component {
         // console.log('from', this.state.dateFrom, 'to',this.state.dateTo);
         return (
             <div className="app">
-                {this.state.sources ? this.renderFilters() : 'Loading'}
+                {this.state.sources ? this.renderFilters() : ''}
                 <div className="content">
                     <Header 
                         inputKeyword={this.setKeyword.bind(this)} 
@@ -117,7 +138,9 @@ class App extends Component {
                         pressEnter={this.getArticleData.bind(this)}
                         clickSearchIcon={this.getArticleData.bind(this)}
                     />
-                    <Section />
+                    <Section 
+                        articles={this.state.articles}
+                    />
                 </div>
             </div>
         );
@@ -128,6 +151,7 @@ class App extends Component {
         // console.log('키워드', this.state.keyword);
         // console.log('이 날짜부터',this.state.dateFrom);
         // console.log('이 날짜까지',this.state.dateTo);
+        console.log('state에 저장된 articles', this.state.articles);
     }
 }
 

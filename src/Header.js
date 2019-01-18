@@ -31,11 +31,15 @@ class Input extends Component {
     }
  
     setKeyword(e) {
-        const keyword = e.target.value
+        console.log(e.target.value);
+
+        const keyword = e.target.value;
         this.props.inputKeyword(keyword);
     }
 
     setStartDate(e) {
+        // console.log(e);
+
         const startDate = e.target.value;
         this.props.selectStartDate(startDate);
     }
@@ -109,7 +113,7 @@ class Input extends Component {
 function Title() {
     return (
         <div className="title">
-            <div>VANILLA WORLD NEWS</div>
+            <div>VANILLA TIMES</div>
         </div>
     );
 }  
