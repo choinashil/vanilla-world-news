@@ -4,14 +4,13 @@
     width: 100vw;
     // background-color: powderblue;
     .content {
-        // border: 1px solid red;
-        width: 100vw;
+        transition: width .4s;
     }
-    // .content-wide {
-    //     width: 90vw;
-    // }
+    .content-wide {
+        width: 100%;
+    }
     .content-narrow {
-        width: 60vw;
+        width: 80%;
     }
   }
   

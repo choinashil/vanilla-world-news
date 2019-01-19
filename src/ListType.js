@@ -34,13 +34,14 @@ class List extends Component {
     }
 
     openModal(e) {
-        const index = +e.currentTarget.className.match(/\d+/g).join();
+        const index = e.currentTarget.dataset.index;
         this.props.clickList(index);
     }
 
     render() {
         return (
-            <div className={`list ${this.props.index}`}
+            <div className="list"
+                data-index={this.props.index}
                 onClick={this.openModal.bind(this)}
             >
                 <div>{this.props.title}</div>

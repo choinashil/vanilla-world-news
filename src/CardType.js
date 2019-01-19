@@ -46,13 +46,14 @@ class Card extends Component {
     }
 
     openModal(e) {
-        const index = +e.currentTarget.className.match(/\d+/g).join();
+        const index = e.currentTarget.dataset.index;
         this.props.clickCard(index);
     }
 
     render() {
         return (
-            <div className={`card ${this.props.index}`}
+            <div className="card"
+                data-index={this.props.index}
                 onClick={this.openModal.bind(this)}
             >
                 <div>

@@ -21,11 +21,11 @@ class App extends Component {
             dateTo: '',
             selectedSources: [],
             articles: [],
+            total: '',
+            isRequesting: false,
+            dataRequestCount: 0,
+            isFiltersOpen: false
         };
-    }
-
-    componentDidMount() {
-        this.requestSourceData();
     }
 
     requestSourceData() {
@@ -34,12 +34,6 @@ class App extends Component {
             this.setState({
                 sources: data.data.sources
             })
-        });
-    }
-    
-    setKeyword(keyword) {
-        this.setState({
-            keyword
         });
     }
 
@@ -57,63 +51,54 @@ class App extends Component {
         } else {
             this.setState(state => {
                 let selectedSources = state.selectedSources;
-                // let selectedSources = [...state.selectedSources]; 
                 selectedSources.splice(index, 1);
                 return {selectedSources};
             })
         }
     }
 
+    setKeyword(keyword) {
+        this.setState({keyword});
+    }
+
     setStartDate(date) {
-        this.setState({
-            dateFrom: date
-        })
+        this.setState({dateFrom: date})
     }
 
     setEndDate(date) {
+        this.setState({dateTo: date})
+    }
+
+    toggleSourcesState() {
+        this.setState((state) => {
+            return {
+                isFiltersOpen: !state.isFiltersOpen
+            };
+        })
+    }
+
+    foo() {
+        this.resetPrevArticleData();
+        this.getArticleData();
+        this.setState({isFiltersOpen: false})
+    }
+
+    resetPrevArticleData() {
         this.setState({
-            dateTo: date
+            articles: [],
+            total: '',
+            dataRequestCount: 0
         })
     }
 
-    setArticles(articles) {
-        this.setState(state => {
-            return {articles: state.articles.concat(articles)};
-        })
-    }
-
-    removePrevArticles() {
-        this.setState({
-            articles: []
-        })
-    }
-
-    modifyArticleData(data) {
-        var articles = data.data.articles;
-        articles.map(article => {
-            if (article.author) {
-                article.writtenBy = `${article.author} / ${article.source.name}`;
-            } else {
-                article.writtenBy = article.source.name;
-            }
-            if (article.content) {
-                article.content = article.content.replace(/\[\+\d+[ ]?[a-z]+\]/g, '');
-            }
-            if (!article.urlToImage) {
-                article.urlToImage = 'https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80';
-            }
-            article.publishedAt = article.publishedAt.slice(0, 10).replace(/-/g, '. ');
-        });
-        return data;
-    }
-
-    async getArticleData() {
-        this.removePrevArticles();
+    async getArticleData(page) {
         try {
-            const rawData = await this.requestArticleData();
-            const ModifiedData = this.modifyArticleData(rawData);
-            if (ModifiedData.data.totalResults) {
-                this.setArticles(ModifiedData.data.articles);
+            const rawData = await this.requestArticleData(page);
+            // console.log(rawData);
+            const modifiedData = this.modifyArticleData(rawData);
+            this.setState({isRequesting: false});
+            if (modifiedData.data.totalResults) {
+                this.setArticleData(modifiedData);
             } else {
                 alert('검색 결과가 없습니다');
             }
@@ -123,6 +108,15 @@ class App extends Component {
     }
 
     requestArticleData(page = 1) {
+        if (this.state.isRequesting) return;
+
+        this.setState(state => {
+            return {
+                dataRequestCount: state.dataRequestCount + 1,
+                isRequesting: true
+            };
+        })
+
         let requirements = 0;
         let url = `https://newsapi.org/v2/everything?&from=${this.state.dateFrom}&to=${this.state.dateTo}&sortBy=popularity&pageSize=30&page=${page}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`;
 
@@ -142,11 +136,56 @@ class App extends Component {
         }
     }
 
+    modifyArticleData(data) {
+        var articles = data.data.articles;
+        articles.map(article => {
+            if (article.author) {
+                article.writtenBy = `${article.author} / ${article.source.name}`;
+            } else {
+                article.writtenBy = article.source.name;
+            }
+            if (article.content) {
+                article.content = article.content.replace(/. \[\+\d+[ ]?[a-z]+\]/g, ' ');
+            }
+            if (!article.urlToImage) {
+                article.urlToImage = 'https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80';
+            }
+            // if (!article.content) {
+            //     article.content = '';
+            // }
+            article.publishedAt = article.publishedAt.slice(0, 10).replace(/-/g, '. ');
+        });
+        return data;
+    }
+
+    setArticleData(data) {
+        this.setState(state => {
+            return {
+                total: data.data.totalResults,
+                articles: state.articles.concat(data.data.articles)
+            };
+        })
+    }
+
+    handleOnScroll() {
+        if (window.scrollY > 10) {
+            this.setState({isFiltersOpen: false})
+        }
+        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1000)) {
+            if (this.state.total - (this.state.dataRequestCount * 30) > 0) {
+                this.getArticleData(this.state.dataRequestCount + 1);
+            } else {
+                console.log('결과없음');
+            }
+        }    
+    }
+
     renderFilters() {
         return <Filters 
             // hidden={this.state.hiddenFilters} 
             sources={this.state.sources} 
-            selectSources={this.setSelectSources.bind(this)} 
+            selectSources={this.setSelectSources.bind(this)}
+            state={this.state.isFiltersOpen}
         />
     }
 
@@ -154,13 +193,15 @@ class App extends Component {
         return (
             <div className="app">
                 {this.state.sources ? this.renderFilters() : ''}
-                <div className="content">
+                <div className={this.state.isFiltersOpen ? "content content-narrow" : "content content-wide"}>
                     <Header 
                         inputKeyword={this.setKeyword.bind(this)} 
                         selectStartDate={this.setStartDate.bind(this)}
                         selectEndDate={this.setEndDate.bind(this)}
-                        pressEnter={this.getArticleData.bind(this)}
-                        clickSearchIcon={this.getArticleData.bind(this)}
+                        pressEnter={this.foo.bind(this)}
+                        clickSearchIcon={this.foo.bind(this)}
+                        clickMoreIcon={this.toggleSourcesState.bind(this)}
+                        showHideFilters={this.state.isFiltersOpen}
                     />
                     <Section 
                         articles={this.state.articles}
@@ -170,13 +211,22 @@ class App extends Component {
         );
     }
 
+    componentDidMount() {
+        this.requestSourceData();
+        window.addEventListener('scroll', this.handleOnScroll.bind(this));
+    }
+
     componentDidUpdate() {
-        console.log(this.state.articles);
-        // console.log('리렌더된 결과', this.state.selectedSources);
+        console.log('articles', this.state.articles);
+        // console.log('total', this.state.total);
+        // console.log('dataRequestCount', this.state.dataRequestCount);
+        // console.log('요청중?',this.state.isRequesting);
+        console.log('선택한 신문사', this.state.selectedSources);
         // console.log('키워드', this.state.keyword);
         // console.log('이 날짜부터',this.state.dateFrom);
         // console.log('이 날짜까지',this.state.dateTo);
         // console.log('state에 저장된 articles', this.state.articles);
+        console.log('필터창 열렸나',this.state.isFiltersOpen);
     }
 }
 

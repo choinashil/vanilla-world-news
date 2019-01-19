@@ -29,12 +29,12 @@ font-family: 'Playfair Display', serif;
     > div {
         // border: 1px solid orange;
     }
-    .filters-btn-wrapper {
+    .filters-btn {
         // border: 1px solid pink;
         display: flex;
         align-items: center;
         cursor: pointer;
-        color: $bk7;
+        color: $bk9;
         padding-top: 17px;
         // border-right: $border;
         > div:nth-child(1) {
@@ -47,30 +47,60 @@ font-family: 'Playfair Display', serif;
                 margin-bottom: 4px;
                 transition: width .2s;
             }
-            div:nth-child(1) {
-                width: 10px;
-            }
-            div:nth-child(2) {
-                width: 17px;
-            }
-            div:nth-child(3) {
-                width: 24px;
-                margin-bottom: 0;
-            }
         }
         > div:nth-child(2) {
             font-size: 13px;
         }
-        &:hover > div:nth-child(1) > div:nth-child(1) {
-            width: 24px;
+
+        &-more {
+            > div:nth-child(1) {
+                div:nth-child(1) {
+                    width: 10px;
+                }
+                div:nth-child(2) {
+                    width: 17px;
+                }
+                div:nth-child(3) {
+                    width: 24px;
+                    margin-bottom: 0;
+                }
+            }
+            &:hover > div:nth-child(1) > div:nth-child(1) {
+                width: 24px;
+            }
+            &:hover > div:nth-child(1) > div:nth-child(2) {
+                width: 17px;
+            }
+            &:hover > div:nth-child(1) > div:nth-child(3) {
+                width: 10px;
+            }    
         }
-        &:hover > div:nth-child(1) > div:nth-child(2) {
-            width: 17px;
-        }
-        &:hover > div:nth-child(1) > div:nth-child(3) {
-            width: 10px;
+
+        &-close {
+            > div:nth-child(1) {
+                div:nth-child(1) {
+                    width: 24px;
+                }
+                div:nth-child(2) {
+                    width: 17px;
+                }
+                div:nth-child(3) {
+                    width: 10px;
+                    margin-bottom: 0;
+                }
+            }
+            &:hover > div:nth-child(1) > div:nth-child(1) {
+                width: 10px;
+            }
+            &:hover > div:nth-child(1) > div:nth-child(2) {
+                width: 17px;
+            }
+            &:hover > div:nth-child(1) > div:nth-child(3) {
+                width: 24px;
+            }    
         }
     }
+
     .input-wrapper {
         // border: 1px solid green;
         display: flex;

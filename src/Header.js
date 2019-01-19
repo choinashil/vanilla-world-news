@@ -17,6 +17,8 @@ class Header extends Component {
                     selectEndDate={this.props.selectEndDate}
                     pressEnter={this.props.pressEnter}
                     clickSearchIcon={this.props.clickSearchIcon}
+                    clickMoreIcon={this.props.clickMoreIcon}
+                    showHideFilters={this.props.showHideFilters}
                 />
                 <Title />
             </header>
@@ -27,19 +29,17 @@ class Header extends Component {
 class Input extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            isBtnTypeMore: true
+        };
     }
  
     setKeyword(e) {
-        console.log(e.target.value);
-
         const keyword = e.target.value;
         this.props.inputKeyword(keyword);
     }
 
     setStartDate(e) {
-        // console.log(e);
-
         const startDate = e.target.value;
         this.props.selectStartDate(startDate);
     }
@@ -49,9 +49,8 @@ class Input extends Component {
         this.props.selectEndDate(endDate);
     }
 
-    openFilterBar(e) {
-        // console.log(e.currentTarget.parentElement.parentElement.parentElement);
-        // this.setState(prevState => {hidden: !prevState.hidden})
+    showAndHideFilters() {
+        this.props.clickMoreIcon();
     }
 
     requestArticleData(e) {
@@ -64,18 +63,19 @@ class Input extends Component {
 
     render() {
         const today = new Date().toJSON().slice(0, 10);
+        // debugger
         return (
             <div className="input">
                 <div 
-                    className="filters-btn-wrapper"
-                    onClick={this.openFilterBar}
+                    className={this.props.showHideFilters ? "filters-btn filters-btn-close" : "filters-btn filters-btn-more"}
+                    onClick={this.showAndHideFilters.bind(this)}
                 >
                     <div>
                         <div></div>
                         <div></div>
                         <div></div>
                     </div>
-                    <div>MORE</div>
+                    <div>{this.props.showHideFilters ? "CLOSE" : "MORE"}</div>
                 </div>
                 <div className="input-wrapper">
                     <input 
@@ -101,7 +101,7 @@ class Input extends Component {
                         type="date" 
                         id="to" 
                         max={today} 
-                        value={today} 
+                        // value={today} 
                         onChange={this.setEndDate.bind(this)} 
                     />
                 </div>

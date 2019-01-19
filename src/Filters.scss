@@ -5,20 +5,12 @@
     // flex-direction: column;
     justify-content: flex-end;
     flex-wrap: wrap;
-    width: 0;
+    // height: calc(100vh + 500px);
     height: 100vh;
     border-right: $border;
-    // padding-right: 5px;
     overflow-y: scroll;
-    // position: absolute;
-    // left: 0;
-    // top: 100px;
-
-    // align-self: flex-start;
-    // border: 1px solid blue;
-    > div {
-        // border: 1px solid orange;
-    }
+    transition: width .4s;
+    // padding: 0 5px;
     .source {
         border: 1px solid $bk8;
         border-radius: 20px;
@@ -29,14 +21,20 @@
         font-size: 12px;
         // color: #555;
     }
-    > div:nth-child(1) {
-        // display: flex;
-        // border: 1px solid blue;
-        margin: 10px;
-        padding: 5px 10px;
-        font-size: 30px;
-        cursor: pointer;
-        color: $bk6;
+    // > div:nth-child(1) {
+    //     // display: flex;
+    //     // border: 1px solid blue;
+    //     margin: 10px;
+    //     padding: 5px 10px;
+    //     font-size: 30px;
+    //     cursor: pointer;
+    //     color: $bk6;
+    // }
+    &-show {
+        width: 20%;
+    }
+    &-hide {
+        width: 0%;
     }
 }
 

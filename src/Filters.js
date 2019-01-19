@@ -10,12 +10,19 @@ class Filters extends Component {
 
     render() {
         return (
-            <div className="filters">
-                <div>
+            <div 
+                className={this.props.state ? "filters filters-show" : "filters filters-hide" }
+            >
+                {/* <div>
                     <i className="fas fa-angle-double-left"></i>
-                </div>
+                </div> */}
                 <div>
-                    {this.props.sources.map(source => <SourceList key={source.id} name={source.name} id={source.id} selectSources={this.props.selectSources} />)}
+                    {this.props.sources.map(source => <SourceList 
+                        key={source.id} 
+                        id={source.id}
+                        name={source.name} 
+                        selectSources={this.props.selectSources} 
+                    />)}
                 </div>
             </div>
         );
@@ -30,7 +37,7 @@ class SourceList extends Component {
         };
     }
 
-    selectSource(e) {
+    selectSource() {
         this.setState({
             selected: !this.state.selected
         })
@@ -42,7 +49,10 @@ class SourceList extends Component {
         return (
             <div 
                 className={this.state.selected ? 'source selected' : 'source'} 
-                onClick={this.selectSource.bind(this)}>{this.props.name}
+                data-id={this.props.id}
+                onClick={this.selectSource.bind(this)}
+            >
+                {this.props.name}
             </div>
         );
     }
