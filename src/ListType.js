@@ -15,9 +15,11 @@ class ListType extends Component {
             <div className="list-wrapper">
                 {this.props.articles.map((article, index) => <List 
                     key={index} 
+                    index={index}
                     title={article.title} 
                     writtenBy={article.writtenBy} 
                     date={article.publishedAt} 
+                    clickList={this.props.clickList}
                 />)}
             </div>
         );
@@ -31,9 +33,16 @@ class List extends Component {
         this.state = {}
     }
 
+    openModal(e) {
+        const index = +e.currentTarget.className.match(/\d+/g).join();
+        this.props.clickList(index);
+    }
+
     render() {
         return (
-            <div className="list">
+            <div className={`list ${this.props.index}`}
+                onClick={this.openModal.bind(this)}
+            >
                 <div>{this.props.title}</div>
                 <div>{this.props.writtenBy}</div>
                 <div>{this.props.date}</div>

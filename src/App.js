@@ -82,20 +82,38 @@ class App extends Component {
         })
     }
 
-    async getArticleData() {
-        try {
-            const data = await this.requestArticleData();
-            data.data.articles.map(article => {
-                if (article.author) {
-                    article.writtenBy = `${article.author} / ${article.source.name}`;
-                } else {
-                    article.writtenBy = article.source.name;
-                }
-                return article.publishedAt = article.publishedAt.slice(0, 10).replace(/-/g, '. ');
-            });
+    removePrevArticles() {
+        this.setState({
+            articles: []
+        })
+    }
 
-            if (data.data.totalResults) {
-                this.setArticles(data.data.articles);
+    modifyArticleData(data) {
+        var articles = data.data.articles;
+        articles.map(article => {
+            if (article.author) {
+                article.writtenBy = `${article.author} / ${article.source.name}`;
+            } else {
+                article.writtenBy = article.source.name;
+            }
+            if (article.content) {
+                article.content = article.content.replace(/\[\+\d+[ ]?[a-z]+\]/g, '');
+            }
+            if (!article.urlToImage) {
+                article.urlToImage = 'https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80';
+            }
+            article.publishedAt = article.publishedAt.slice(0, 10).replace(/-/g, '. ');
+        });
+        return data;
+    }
+
+    async getArticleData() {
+        this.removePrevArticles();
+        try {
+            const rawData = await this.requestArticleData();
+            const ModifiedData = this.modifyArticleData(rawData);
+            if (ModifiedData.data.totalResults) {
+                this.setArticles(ModifiedData.data.articles);
             } else {
                 alert('검색 결과가 없습니다');
             }
@@ -153,7 +171,7 @@ class App extends Component {
     }
 
     componentDidUpdate() {
-        // console.log(this.state.articles);
+        console.log(this.state.articles);
         // console.log('리렌더된 결과', this.state.selectedSources);
         // console.log('키워드', this.state.keyword);
         // console.log('이 날짜부터',this.state.dateFrom);
@@ -165,4 +183,3 @@ class App extends Component {
 
 export default App;
 
-// 18f951d779cc4afdb0207b7ae7a583f3

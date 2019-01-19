@@ -22,6 +22,7 @@ class CardType extends Component {
             <div className="card-wrapper">
                 {this.props.articles.map((article, index) => <Card 
                     key={index} 
+                    index={index}
                     title={article.title} 
                     source={article.source.name} 
                     author={article.author} 
@@ -45,16 +46,17 @@ class Card extends Component {
     }
 
     openModal(e) {
-        // console.log('클릭함',e.currentTarget);
-        // console.log(e.currentTarget);
-        this.props.clickCard();
+        const index = +e.currentTarget.className.match(/\d+/g).join();
+        this.props.clickCard(index);
     }
 
     render() {
         return (
-            <div className="card" onClick={this.openModal.bind(this)}>
+            <div className={`card ${this.props.index}`}
+                onClick={this.openModal.bind(this)}
+            >
                 <div>
-                    <img src={this.props.img} alt="" />
+                    <img src={this.props.img} alt={this.props.title} />
                 </div>
                 <div>
                     <div>{this.props.title}</div>

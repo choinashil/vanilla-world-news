@@ -45,6 +45,7 @@ font-family: 'Playfair Display', serif;
                 height: 2px;
                 background-color: $bk6;
                 margin-bottom: 4px;
+                transition: width .2s;
             }
             div:nth-child(1) {
                 width: 10px;
@@ -59,9 +60,6 @@ font-family: 'Playfair Display', serif;
         }
         > div:nth-child(2) {
             font-size: 13px;
-        }
-        &:hover > div:nth-child(1) > div {
-            transition: width .2s;
         }
         &:hover > div:nth-child(1) > div:nth-child(1) {
             width: 24px;

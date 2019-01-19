@@ -1,16 +1,60 @@
 @import '_utils.scss';
 
-.modal-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.modal-background {
     width: 100vw;
     height: 100vh;
-    background-color: $bk8;
+    background-color: $bk9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    &-fadeout {
+        animation: fadeout .3s;
+        animation-delay: .2s;
+    }
 }
 
 .modal {
-    width: 500px;
-    height: 350px;
-    background-color: pink;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    background-color: #fff;
+    position: fixed;
+
+    div:nth-child(1) {
+        img {
+            width: 70%;
+        }
+    }
+    div:nth-child(2) {
+
+    }
+    &-up {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: up .4s ease;   
+    }
+    &-down {
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%);
+        animation: down .2s ease-out;
+    }
+}
+
+@keyframes up {
+    from {top: 100%;}
+    to {top: 50%;}
+}
+
+@keyframes down {
+    from {top: 50%;}
+    to {top: 100%;}
+}
+
+@keyframes fadeout {
+    from {background-color: $bk9;}
+    to {background-color: $bk0;}
 }

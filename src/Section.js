@@ -12,7 +12,8 @@ class Section extends Component {
         super(props);
         this.state = {
             isCardType: true,
-            isModalOpen: false
+            isModalOpen: false,
+            articleIndexForModal: ''
         };
     }
 
@@ -22,9 +23,12 @@ class Section extends Component {
         })
     }
 
-    toggleModalState() {
+    toggleModalState(index) {
         this.setState(state => {
-            return {isModalOpen: !state.isModalOpen}
+            return {
+                isModalOpen: !state.isModalOpen,
+                articleIndexForModal: index
+            }
         })
     }
 
@@ -35,18 +39,28 @@ class Section extends Component {
                     clickButton={this.toggleType.bind(this)}
                 />
 
-                {this.state.isCardType ? <CardType articles={this.props.articles} clickCard={this.toggleModalState.bind(this)}
-/> : <ListType articles={this.props.articles} />}
+                {this.state.isCardType ? 
+                <CardType 
+                    articles={this.props.articles} 
+                    clickCard={this.toggleModalState.bind(this)} /> : 
+                <ListType 
+                    articles={this.props.articles} 
+                    clickList={this.toggleModalState.bind(this)} 
+                />}
 
-                {this.state.isModalOpen && <Modal clickModal={this.toggleModalState.bind(this)}/>}
+                {this.state.isModalOpen && 
+                <Modal 
+                    clickModal={this.toggleModalState.bind(this)} 
+                    articles={this.props.articles[this.state.articleIndexForModal]} 
+                />}
             </section>
         );
     }
 
     componentDidUpdate() {
         // console.log('바꾼후',this.state.isCardType);
-        console.log('모달상태', this.state.isModalOpen);
-
+        // console.log('모달상태', this.state.isModalOpen);
+        console.log('보여줄인덱스', this.state.articleIndexForModal);
     }
 }
 
