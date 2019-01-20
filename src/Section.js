@@ -5,7 +5,6 @@ import Headlines from './Headlines';
 
 import './Section.scss';
 import './_utils.scss';
-import { ReadStream } from 'tty';
 
 class Section extends Component {
     constructor(props) {

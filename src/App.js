@@ -45,7 +45,7 @@ class App extends Component {
     }
 
 
-    requestHeadlinesData(category = 'general') {
+    requestHeadlinesData(category = 'entertainment') {
         // if (this.state.isRequesting) return;
 
         // this.setState({isRequesting: true});
@@ -164,6 +164,7 @@ class App extends Component {
             url += `&sources=${this.state.selectedSources.join()}`;
         }
 
+        console.log('asdf',url);
         if (requirements) {
             return Axios.get(url);
         } else {

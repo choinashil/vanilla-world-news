@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {Title} from './ArticleParts';
+
 import './Headlines.scss';
 import './_utils.scss';
 
@@ -26,8 +28,8 @@ class Headlines extends Component {
         return(
             <div className="Headlines-wrapper">
                 <TopHeadline headlines={this.state.topHeadline} />
-                <VerticalListHeadline headlines={this.state.verticalHeadline} />
-                <HorizontalListHeadline headlines={this.state.horizontalHeadline} />
+                <VerticalHeadline headlines={this.state.verticalHeadline} />
+                <HorizontalHeadline headlines={this.state.horizontalHeadline} />
             </div>
         );
     }
@@ -52,6 +54,7 @@ class TopHeadline extends Component {
 
     render() {
         const headlines = this.props.headlines;
+        console.log('탑뉴스', headlines);
         const bgImage = {
             backgroundImage: `url(${headlines.urlToImage}), url(https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)`
         };
@@ -59,20 +62,20 @@ class TopHeadline extends Component {
         return (
             <div className="TopHeadline-wrapper">
                 <div>
-                    <div style={bgImage}></div>
+                    <div style={bgImage} className="img"></div>
                 </div>
                 <div>
-                    {headlines.title}
+                    <div className="title">{headlines.title}</div>
                 </div>
                 <div>
                     <div>
-                        <div>
+                        <div className="source">
                             {headlines.source ? headlines.source.name : headlines.author}
                         </div>
-                        <div>{headlines.publishedAt}</div>
+                        <div className="date">{headlines.publishedAt}</div>
                     </div>
                     <div>
-                        <div>{headlines.description}</div>
+                        <div className="description">{headlines.description}</div>
                     </div>
                 </div>
             </div> 
@@ -80,22 +83,57 @@ class TopHeadline extends Component {
     }
 }
 
-class VerticalListHeadline extends Component {
+class VerticalHeadline extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
 
     render() {
+        const headlines = this.props.headlines;
+        let bgImage; 
+        if (headlines.length) {
+            bgImage = {
+                backgroundImage: `url(${headlines[0].urlToImage}), url(https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)`
+            };    
+        }
+
+        console.log('헤드라인!!!',headlines);
+
         return(
-            <div className="VerticalListHeadline-wrapper">
+            <div className="VerticalHeadline-wrapper">
+                <div className="VH-sub-title">Headlines</div>
+
+                {headlines.length ? 
+                    headlines.map((headline, index) => <VerticalHeadlineList
+                        key={index}
+                        headline={headline}
+                    />)
+                : null}
 
             </div>
         );
     }
 }
 
-class HorizontalListHeadline extends Component {
+function VerticalHeadlineList(props) {
+    const headline = props.headline;
+    const bgImage = {backgroundImage: `url(${headline.urlToImage}), url(https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)`}
+
+    return (
+        <div className="VerticalHeadlineList">
+            <div>
+                <div className="title">{headline.title}</div>
+                <div className="date">{headline.source.name}</div>
+            </div>
+            <div>
+                <div style={bgImage} className="img"></div>
+            </div>
+        </div>
+    );
+}
+
+class HorizontalHeadline extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -103,7 +141,7 @@ class HorizontalListHeadline extends Component {
     
     render() {
         return(
-            <div className="HorizontalListHeadline-wrapper">
+            <div className="HorizontalHeadline-wrapper">
 
             </div>
         );

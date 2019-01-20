@@ -23,6 +23,9 @@ class Header extends Component {
                 <Title 
                     clickTitle={this.props.clickTitle}
                 />
+                <Category 
+                    clickCategory={this.props.clickCategory}
+                />
             </header>
         );
     }
@@ -130,6 +133,34 @@ class Title extends Component {
                     onClick={this.showHeadlines.bind(this)}
                 >
                     VANILLA TIMES
+                </div>
+            </div>
+        );
+    }
+}
+
+class Category extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    changeCategory() {
+        this.props.clickCategory();
+    }
+
+    render() {
+        const categories = ['BUSINESS', 'ENTERTAINMENT', 'SPORTS', 'SCIENCE', 'TECHNOLOGY'];
+
+        return(
+            <div className="Category-wrapper">
+                <div>
+                    {categories.map((category) => <div 
+                        key={category}
+                        className="category"
+                    >
+                        {category}
+                    </div>)}
                 </div>
             </div>
         );
