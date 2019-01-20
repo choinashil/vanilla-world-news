@@ -19,6 +19,7 @@ class ListType extends Component {
                     title={article.title} 
                     writtenBy={article.writtenBy} 
                     date={article.publishedAt} 
+                    img={article.urlToImage} 
                     clickList={this.props.clickList}
                 />)}
             </div>
@@ -39,14 +40,23 @@ class List extends Component {
     }
 
     render() {
+        const bgImage = {
+            backgroundImage: 'url(' + this.props.img + '), url(https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)'
+        };
+
         return (
             <div className="list"
                 data-index={this.props.index}
                 onClick={this.openModal.bind(this)}
             >
-                <div>{this.props.title}</div>
-                <div>{this.props.writtenBy}</div>
-                <div>{this.props.date}</div>
+                <div>
+                    <div style={bgImage} className="list-img"></div>
+                </div>
+                <div>   
+                    <div>{this.props.title}</div>
+                    <div>{this.props.writtenBy}</div>
+                    <div>{this.props.date}</div>
+                </div>
             </div>
         );
     }

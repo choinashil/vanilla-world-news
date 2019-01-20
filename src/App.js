@@ -28,6 +28,38 @@ class App extends Component {
         };
     }
 
+    async getHeadLinesData(category) {
+        try {
+            const rawData = await this.requestHeadLinesData(category);
+            console.log('헤드라인rawData',rawData);
+            // const modifiedData = this.modifyArticleData(rawData);
+            // this.setState({isRequesting: false});
+            // if (modifiedData.data.totalResults) {
+            //     this.setArticleData(modifiedData);
+            // } else {
+            //     alert('검색 결과가 없습니다');
+            // }
+            this.setState({isRequesting: false});
+        } catch(err) {
+            console.error(err);
+        }
+    }
+
+
+    requestHeadLinesData(category = 'general') {
+        if (this.state.isRequesting) return;
+
+        this.setState({isRequesting: true});
+        return Axios.get(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`)
+
+    }
+
+    setHeadLinesData() {
+        this.setState({
+            
+        })
+    }
+
     requestSourceData() {
         Axios.get('https://newsapi.org/v2/sources?apiKey=18f951d779cc4afdb0207b7ae7a583f3')
         .then(data => {
@@ -213,6 +245,7 @@ class App extends Component {
 
     componentDidMount() {
         this.requestSourceData();
+        this.getHeadLinesData();
         window.addEventListener('scroll', this.handleOnScroll.bind(this));
     }
 
@@ -227,6 +260,10 @@ class App extends Component {
         // console.log('이 날짜까지',this.state.dateTo);
         // console.log('state에 저장된 articles', this.state.articles);
         console.log('필터창 열렸나',this.state.isFiltersOpen);
+    }
+
+    componentWillUnmount() {
+        window.RemoveEventListener('scroll', this.handleOnScroll.bind(this));
     }
 }
 
