@@ -26,7 +26,8 @@ class App extends Component {
             isRequesting: false,
             dataRequestCount: 0,
             isFiltersOpen: false,
-            searched: false // default false 
+            searched: false, // default false
+            selectedCategory: ''
         };
     }
 
@@ -45,7 +46,7 @@ class App extends Component {
     }
 
 
-    requestHeadlinesData(category = 'entertainment') {
+    requestHeadlinesData(category = 'general') {
         // if (this.state.isRequesting) return;
 
         // this.setState({isRequesting: true});
@@ -81,6 +82,11 @@ class App extends Component {
                 return {selectedSources};
             })
         }
+    }
+
+    setCategory(category) {
+        this.setState({selectedCategory: category});
+        this.getHeadlinesData(category);
     }
 
     setKeyword(keyword) {
@@ -239,6 +245,7 @@ class App extends Component {
                         clickMoreIcon={this.toggleSourcesState.bind(this)}
                         showHideFilters={this.state.isFiltersOpen}
                         clickTitle={this.showHeadlines.bind(this)}
+                        clickCategory={this.setCategory.bind(this)}
                     />
                     <Section 
                         searched={this.state.searched}
@@ -268,6 +275,7 @@ class App extends Component {
         // console.log('이 날짜까지',this.state.dateTo);
         // console.log('state에 저장된 articles', this.state.articles);
         // console.log('필터창 열렸나',this.state.isFiltersOpen);
+        console.log('setCategory', this.state.selectedCategory);
     }
 
     componentWillUnmount() {

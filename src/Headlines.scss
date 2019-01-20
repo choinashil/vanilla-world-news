@@ -23,11 +23,21 @@
     > div:nth-child(1) { // img
         display: flex;
         justify-content: center;
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
         .img { 
+            // width: 100%;
+            // height: 300px;
             width: 100%;
-            height: 300px;
+            height: 100%;
             background-position: center;
             background-size: cover;
+            transition: transform .2s ease;
+
+        }
+        &:hover > .img{
+            transform: scale(1.03, 1.03);
         }
     }
     > div:nth-child(2) { // title
@@ -56,26 +66,34 @@
             align-items: center;
             border-right: $border;
             padding: 15px;
+            text-align: center;
+            
             // max-width: 300px;
             // overflow: hidden;
             // text-overflow: ellipsis;
             // white-space: nowrap;
             // word-wrap: normal;
+            > div {
+                // border: 1px solid pink;
+            }
             .source {
                 font-size: 15px;
                 color: $bk7;
                 margin-bottom: 5px;
             }
             .date {
+                width: 80px;
                 color: $bk5;
                 font-size: 12px;
             }
         }
         > div:nth-child(2) {
+            display: flex;
+            align-items: center;
             // width: 80%;
             padding: 15px;
             .description {
-                color: $bk5;
+                color: $bk7;
                 display: -webkit-box;
                 overflow: hidden;
                 max-height: 46px;

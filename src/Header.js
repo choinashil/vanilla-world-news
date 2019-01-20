@@ -145,8 +145,9 @@ class Category extends Component {
         this.state = {};
     }
 
-    changeCategory() {
-        this.props.clickCategory();
+    changeCategory(e) {
+        const category = e.target.textContent.toLowerCase();
+        this.props.clickCategory(category);
     }
 
     render() {
@@ -157,7 +158,8 @@ class Category extends Component {
                 <div>
                     {categories.map((category) => <div 
                         key={category}
-                        className="category"
+                        className="Category"
+                        onClick={this.changeCategory.bind(this)}
                     >
                         {category}
                     </div>)}

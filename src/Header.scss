@@ -13,7 +13,6 @@ font-family: 'Playfair Display', serif;
     flex-direction: column;
     align-items: center;
     // border: 1px solid salmon;
-    font-size: 53px;
     > div {
         width: 90%;
         border-bottom: $border;
@@ -163,4 +162,26 @@ font-family: 'Playfair Display', serif;
     padding: 25px 0;
     color: $bk8;
     cursor: pointer;
+    font-size: 53px;
+}
+
+.Category-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    color: $bk8;
+    font-size: 20px;
+    border-bottom: 5px solid $bk5;
+    // border: 1px solid red;
+    > div {
+        // border: 1px solid green;
+        display: flex;
+        width: 60%;
+        justify-content: space-around;
+
+        .Category {
+            cursor: pointer;
+        }
+    }
 }
