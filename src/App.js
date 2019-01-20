@@ -20,44 +20,38 @@ class App extends Component {
             dateFrom: '',
             dateTo: '',
             selectedSources: [],
+            headlines: [],
             articles: [],
             total: '',
             isRequesting: false,
             dataRequestCount: 0,
-            isFiltersOpen: false
+            isFiltersOpen: false,
+            searched: false // default false 
         };
     }
 
-    async getHeadLinesData(category) {
+    async getHeadlinesData(category) {
         try {
-            const rawData = await this.requestHeadLinesData(category);
-            console.log('헤드라인rawData',rawData);
-            // const modifiedData = this.modifyArticleData(rawData);
-            // this.setState({isRequesting: false});
-            // if (modifiedData.data.totalResults) {
-            //     this.setArticleData(modifiedData);
-            // } else {
-            //     alert('검색 결과가 없습니다');
-            // }
-            this.setState({isRequesting: false});
+            const rawData = await this.requestHeadlinesData(category);
+            const modifiedData = this.modifyRawData(rawData);
+            this.setState(state => {
+                return {
+                    headlines: state.headlines.concat(modifiedData.data.articles)
+                };
+            })
         } catch(err) {
             console.error(err);
         }
     }
 
 
-    requestHeadLinesData(category = 'general') {
-        if (this.state.isRequesting) return;
+    requestHeadlinesData(category = 'general') {
+        // if (this.state.isRequesting) return;
 
-        this.setState({isRequesting: true});
+        // this.setState({isRequesting: true});
+        this.setState({headlines: []})
         return Axios.get(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`)
 
-    }
-
-    setHeadLinesData() {
-        this.setState({
-            
-        })
     }
 
     requestSourceData() {
@@ -102,17 +96,26 @@ class App extends Component {
     }
 
     toggleSourcesState() {
-        this.setState((state) => {
+        this.setState(state => {
             return {
                 isFiltersOpen: !state.isFiltersOpen
             };
         })
     }
 
-    foo() {
+    showHeadlines() {
+        this.setState({searched: false})
+    }
+
+    showSearchedArticle() {
         this.resetPrevArticleData();
         this.getArticleData();
-        this.setState({isFiltersOpen: false})
+        this.setState(state => {
+            return {
+                isFiltersOpen: false,
+                searched: !state.searched
+            }
+        })
     }
 
     resetPrevArticleData() {
@@ -127,7 +130,7 @@ class App extends Component {
         try {
             const rawData = await this.requestArticleData(page);
             // console.log(rawData);
-            const modifiedData = this.modifyArticleData(rawData);
+            const modifiedData = this.modifyRawData(rawData);
             this.setState({isRequesting: false});
             if (modifiedData.data.totalResults) {
                 this.setArticleData(modifiedData);
@@ -168,7 +171,7 @@ class App extends Component {
         }
     }
 
-    modifyArticleData(data) {
+    modifyRawData(data) {
         var articles = data.data.articles;
         articles.map(article => {
             if (article.author) {
@@ -230,13 +233,16 @@ class App extends Component {
                         inputKeyword={this.setKeyword.bind(this)} 
                         selectStartDate={this.setStartDate.bind(this)}
                         selectEndDate={this.setEndDate.bind(this)}
-                        pressEnter={this.foo.bind(this)}
-                        clickSearchIcon={this.foo.bind(this)}
+                        pressEnter={this.showSearchedArticle.bind(this)}
+                        clickSearchIcon={this.showSearchedArticle.bind(this)}
                         clickMoreIcon={this.toggleSourcesState.bind(this)}
                         showHideFilters={this.state.isFiltersOpen}
+                        clickTitle={this.showHeadlines.bind(this)}
                     />
                     <Section 
+                        searched={this.state.searched}
                         articles={this.state.articles}
+                        headlines={this.state.headlines}
                     />
                 </div>
             </div>
@@ -245,21 +251,22 @@ class App extends Component {
 
     componentDidMount() {
         this.requestSourceData();
-        this.getHeadLinesData();
+        this.getHeadlinesData();
         window.addEventListener('scroll', this.handleOnScroll.bind(this));
     }
 
     componentDidUpdate() {
+        console.log('headlines', this.state.headlines);
         console.log('articles', this.state.articles);
         // console.log('total', this.state.total);
         // console.log('dataRequestCount', this.state.dataRequestCount);
         // console.log('요청중?',this.state.isRequesting);
-        console.log('선택한 신문사', this.state.selectedSources);
+        // console.log('선택한 신문사', this.state.selectedSources);
         // console.log('키워드', this.state.keyword);
         // console.log('이 날짜부터',this.state.dateFrom);
         // console.log('이 날짜까지',this.state.dateTo);
         // console.log('state에 저장된 articles', this.state.articles);
-        console.log('필터창 열렸나',this.state.isFiltersOpen);
+        // console.log('필터창 열렸나',this.state.isFiltersOpen);
     }
 
     componentWillUnmount() {

@@ -1,0 +1,27 @@
+@import '_utils.scss';
+
+.Headlines-wrapper {
+    // width: 90%;
+    border: 1px solid violet;
+}
+
+.TopHeadline-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 500px;
+    border: 1px solid green;
+    > div {
+        border: 1px solid blue;
+
+    }
+    > div:nth-child(1) {
+        > div {
+            width: 300px;
+            height: 200px;
+            background-position: center;
+            background-size: cover;
+        }
+        
+    }
+}

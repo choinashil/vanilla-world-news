@@ -20,7 +20,9 @@ class Header extends Component {
                     clickMoreIcon={this.props.clickMoreIcon}
                     showHideFilters={this.props.showHideFilters}
                 />
-                <Title />
+                <Title 
+                    clickTitle={this.props.clickTitle}
+                />
             </header>
         );
     }
@@ -110,13 +112,29 @@ class Input extends Component {
     }
 }
 
-function Title() {
-    return (
-        <div className="title">
-            <div>VANILLA TIMES</div>
-        </div>
-    );
-}  
+
+class Title extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    showHeadlines() {
+        this.props.clickTitle();
+    }
+
+    render() {
+        return (
+            <div className="title">
+                <div
+                    onClick={this.showHeadlines.bind(this)}
+                >
+                    VANILLA TIMES
+                </div>
+            </div>
+        );
+    }
+}
 
 
 export default Header;
