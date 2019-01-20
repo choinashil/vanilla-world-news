@@ -1,6 +1,6 @@
 @import '_utils.scss';
 
-.filters {
+.Filters {
     display: flex;
     // flex-direction: column;
     justify-content: flex-end;
@@ -10,26 +10,8 @@
     border-right: $border;
     overflow-y: scroll;
     transition: width .4s;
-    // padding: 0 5px;
-    .source {
-        border: 1px solid $bk8;
-        border-radius: 20px;
-        padding: 5px 10px;
-        display: inline-block;
-        margin: 5px;
-        cursor: pointer;
-        font-size: 12px;
-        // color: #555;
-    }
-    // > div:nth-child(1) {
-    //     // display: flex;
-    //     // border: 1px solid blue;
-    //     margin: 10px;
-    //     padding: 5px 10px;
-    //     font-size: 30px;
-    //     cursor: pointer;
-    //     color: $bk6;
-    // }
+    font-family: 'Unna', serif;
+    padding-top: 20px;
     &-show {
         width: 20%;
     }
@@ -38,7 +20,79 @@
     }
 }
 
-.selected {
-    background-color: $bk8;
-    color: #fff;
+.Calendar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    // justify-content: space-around;
+    padding-top: 15px;
+    // border: 1px solid red;
+    margin-bottom: 10px;
+    div {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    > div {
+        display: flex;
+        flex-direction: row;
+        p {
+            // border: 1px solid pink;
+            font-size: 14px;
+            color: $bk7;
+            transform: translateY(-9px);
+            margin-right: 10px;
+            // border-bottom: $border;
+        }
+        input {
+            // border: 1px solid blue;
+            width: 120px;
+            height: 25px;
+            border: none;
+            outline: none;
+            border-bottom: $border;
+            // text-align: center;
+
+            color: $bk7;
+            font-family: 'Adamina', serif;
+        }    
+    }
 }
+
+.Source-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    .Source-title {
+        font-size: 16px;
+        margin: 20px 0;
+    }
+    > div:nth-child(2) {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        .Source {
+            border: 1px solid $bk8;
+            border-radius: 20px;
+            padding: 5px 10px;
+            display: inline-block;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            &-title {
+                // border: 1px solid green;
+                text-align: center;
+                padding: 15px 0;
+            }
+            &-selected {
+                background-color: $bk8;
+                color: #fff;    
+            }
+        }    
+    
+    }
+}
+

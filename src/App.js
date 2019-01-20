@@ -37,6 +37,7 @@ class App extends Component {
             const modifiedData = this.modifyRawData(rawData);
             this.setState(state => {
                 return {
+                    isRequesting: false,
                     headlines: state.headlines.concat(modifiedData.data.articles)
                 };
             })
@@ -47,9 +48,9 @@ class App extends Component {
 
 
     requestHeadlinesData(category = 'general') {
-        // if (this.state.isRequesting) return;
+        if (this.state.isRequesting) return;
 
-        // this.setState({isRequesting: true});
+        this.setState({isRequesting: true});
         this.setState({headlines: []})
         return Axios.get(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`)
 
@@ -85,7 +86,10 @@ class App extends Component {
     }
 
     setCategory(category) {
-        this.setState({selectedCategory: category});
+        this.setState({
+            selectedCategory: category,
+            searched: false
+        });
         this.getHeadlinesData(category);
     }
 
@@ -111,6 +115,7 @@ class App extends Component {
 
     showHeadlines() {
         this.setState({searched: false})
+        this.getHeadlinesData();
     }
 
     showSearchedArticle() {
@@ -119,7 +124,8 @@ class App extends Component {
         this.setState(state => {
             return {
                 isFiltersOpen: false,
-                searched: !state.searched
+                searched: true,
+                selectedCategory: 'general'
             }
         })
     }
@@ -179,25 +185,29 @@ class App extends Component {
     }
 
     modifyRawData(data) {
-        var articles = data.data.articles;
-        articles.map(article => {
-            if (article.author) {
-                article.writtenBy = `${article.author} / ${article.source.name}`;
-            } else {
-                article.writtenBy = article.source.name;
-            }
-            if (article.content) {
-                article.content = article.content.replace(/. \[\+\d+[ ]?[a-z]+\]/g, ' ');
-            }
-            if (!article.urlToImage) {
-                article.urlToImage = 'https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80';
-            }
-            // if (!article.content) {
-            //     article.content = '';
-            // }
-            article.publishedAt = article.publishedAt.slice(0, 10).replace(/-/g, '. ');
-        });
-        return data;
+        if (data) {
+            var articles = data.data.articles;
+            articles.map(article => {
+                if (article.author) {
+                    article.writtenBy = `${article.author} / ${article.source.name}`;
+                } else {
+                    article.writtenBy = article.source.name;
+                }
+                if (article.content) {
+                    article.content = article.content.replace(/. \[\+\d+[ ]?[a-z]+\]/g, ' ');
+                }
+
+                if (!article.urlToImage) {
+                    article.urlToImage = 'http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg';
+                }
+
+                // if (!article.content) {
+                //     article.content = '';
+                // }
+                article.publishedAt = article.publishedAt.slice(0, 10).replace(/-/g, '. ');
+            });
+            return data;    
+        }
     }
 
     setArticleData(data) {
@@ -210,16 +220,18 @@ class App extends Component {
     }
 
     handleOnScroll() {
-        if (window.scrollY > 10) {
-            this.setState({isFiltersOpen: false})
-        }
-        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1000)) {
-            if (this.state.total - (this.state.dataRequestCount * 30) > 0) {
-                this.getArticleData(this.state.dataRequestCount + 1);
-            } else {
-                console.log('결과없음');
+        if (this.state.searched) {
+            if (window.scrollY > 10) {
+                this.setState({isFiltersOpen: false})
             }
-        }    
+            if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1000)) {
+                if (this.state.total - (this.state.dataRequestCount * 30) > 0) {
+                    this.getArticleData(this.state.dataRequestCount + 1);
+                } else {
+                    console.log('결과없음');
+                }
+            }        
+        }
     }
 
     renderFilters() {
@@ -228,6 +240,9 @@ class App extends Component {
             sources={this.state.sources} 
             selectSources={this.setSelectSources.bind(this)}
             state={this.state.isFiltersOpen}
+            selectStartDate={this.setStartDate.bind(this)}
+            selectEndDate={this.setEndDate.bind(this)}
+
         />
     }
 
@@ -238,10 +253,8 @@ class App extends Component {
                 <div className={this.state.isFiltersOpen ? "content content-narrow" : "content content-wide"}>
                     <Header 
                         inputKeyword={this.setKeyword.bind(this)} 
-                        selectStartDate={this.setStartDate.bind(this)}
-                        selectEndDate={this.setEndDate.bind(this)}
                         pressEnter={this.showSearchedArticle.bind(this)}
-                        clickSearchIcon={this.showSearchedArticle.bind(this)}
+                        // clickSearchIcon={this.showSearchedArticle.bind(this)}
                         clickMoreIcon={this.toggleSourcesState.bind(this)}
                         showHideFilters={this.state.isFiltersOpen}
                         clickTitle={this.showHeadlines.bind(this)}
@@ -251,8 +264,11 @@ class App extends Component {
                         searched={this.state.searched}
                         articles={this.state.articles}
                         headlines={this.state.headlines}
-                    />
+                        isRequesting={this.state.isRequesting}
+                    />  
                 </div>
+                {this.state.isRequesting && <LoadingIcon />}
+                
             </div>
         );
     }
@@ -264,18 +280,8 @@ class App extends Component {
     }
 
     componentDidUpdate() {
-        console.log('headlines', this.state.headlines);
-        console.log('articles', this.state.articles);
-        // console.log('total', this.state.total);
-        // console.log('dataRequestCount', this.state.dataRequestCount);
-        // console.log('요청중?',this.state.isRequesting);
-        // console.log('선택한 신문사', this.state.selectedSources);
-        // console.log('키워드', this.state.keyword);
-        // console.log('이 날짜부터',this.state.dateFrom);
-        // console.log('이 날짜까지',this.state.dateTo);
-        // console.log('state에 저장된 articles', this.state.articles);
-        // console.log('필터창 열렸나',this.state.isFiltersOpen);
-        console.log('setCategory', this.state.selectedCategory);
+        console.log('요청중?',this.state.isRequesting);
+        console.log('데이터요청', this.state.dataRequestCount)
     }
 
     componentWillUnmount() {
@@ -283,6 +289,14 @@ class App extends Component {
     }
 }
 
+
+function LoadingIcon() {
+    return(
+        <div className="Loading-icon">
+            <img src="https://pngimage.net/wp-content/uploads/2018/05/buffering-png-3.png" alt="loading" />
+        </div>
+    );
+}
 
 export default App;
 

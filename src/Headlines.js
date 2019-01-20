@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import {Title} from './ArticleParts';
-
 import './Headlines.scss';
 import './_utils.scss';
 
@@ -55,14 +53,14 @@ class TopHeadline extends Component {
     render() {
         const headlines = this.props.headlines;
         console.log('탑뉴스', headlines);
-        const bgImage = {
-            backgroundImage: `url(${headlines.urlToImage}), url(https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)`
+        const image = {
+            backgroundImage: `url(${headlines.urlToImage}), url(http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg)`
         };
 
         return (
             <div className="TopHeadline-wrapper">
                 <div>
-                    <div style={bgImage} className="img"></div>
+                    <div style={image} className="img"></div>
                 </div>
                 <div>
                     <div className="title">{headlines.title}</div>
@@ -91,18 +89,10 @@ class VerticalHeadline extends Component {
 
     render() {
         const headlines = this.props.headlines;
-        let bgImage; 
-        if (headlines.length) {
-            bgImage = {
-                backgroundImage: `url(${headlines[0].urlToImage}), url(https://images.unsplash.com/photo-1498049860654-af1a5c566876?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)`
-            };    
-        }
-
-        console.log('헤드라인!!!',headlines);
 
         return(
             <div className="VerticalHeadline-wrapper">
-                <div className="VH-sub-title">Headlines</div>
+                <div className="VH-sub-title">TOP ARTICLES</div>
 
                 {headlines.length ? 
                     headlines.map((headline, index) => <VerticalHeadlineList

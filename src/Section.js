@@ -25,13 +25,22 @@ class Section extends Component {
     }
 
     render() {
+        // console.log('렌더중');
         return(
             <section className="Section-wrapper">
                 {this.props.searched ? this.renderResults() : this.renderHeadlines()}
             </section>
         );
     }
-}
 
+    componentDidMount() {
+        // console.log('mount 렌더끝');
+    }
+
+    componentDidUpdate() {
+        // console.log('update 렌더끝');
+    }
+
+}
 
 export default Section;
