@@ -20,7 +20,7 @@ class Headlines extends Component {
     }
 
     render() {
-        return(
+        return (
             <div className="Headlines-wrapper">
                 <TopHeadline headlines={this.state.topHeadline} />
                 <VerticalHeadline headlines={this.state.verticalHeadline} />
@@ -78,15 +78,15 @@ class VerticalHeadline extends Component {
     render() {
         const headlines = this.props.headlines;
 
-        return(
+        return (
             <div className="VerticalHeadline-wrapper">
                 <div className="VH-sub-title">TOP ARTICLES</div>
                 {headlines.length ?
                     headlines.map((headline, index) => <VerticalHeadlineList
                         key={index}
                         headline={headline}
-                    />)
-                : null}
+                    />) : 
+                null}
             </div>
         );
     }
@@ -105,7 +105,7 @@ function VerticalHeadlineList(props) {
                 <div className="date">{headline.source.name}</div>
             </div>
             <div>
-                <div style={bgImage} className="img"/>
+                <div style={bgImage} className="img" />
             </div>
         </div>
     );

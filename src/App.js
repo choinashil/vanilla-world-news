@@ -49,13 +49,12 @@ class App extends Component {
             isRequesting: true,
             headlines: []
         });
-
         return Axios.get(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=18f951d779cc4afdb0207b7ae7a583f3`);
     }
 
     modifyRawData(data) {
         if (data) {
-            var articles = data.data.articles;
+            const articles = data.data.articles;
             articles.map(article => {
                 if (article.author) {
                     article.writtenBy = `${article.author} / ${article.source.name}`;
@@ -239,7 +238,6 @@ class App extends Component {
                         headlines={this.state.headlines}
                         isRequesting={this.state.isRequesting}
                         clickSection={this.closeFilters.bind(this)}
-
                     />
                 </div>
                 {this.state.isRequesting && <LoadingIcon />}

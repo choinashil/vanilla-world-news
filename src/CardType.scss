@@ -18,7 +18,7 @@
     > div {
         border: 1px solid $bk3;
         overflow: hidden;
-        &:hover .Card-content{
+        &:hover .Card-content {
             background: $bk6;
             transform: translate(0, -20px);
         }

@@ -9,7 +9,7 @@ class CardType extends Component {
     }
 
     render() {
-        return(
+        return (
             <div className="Card-wrapper">
                 {this.props.articles.map((article, index) => <Card
                     key={index}

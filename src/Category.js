@@ -16,7 +16,7 @@ class Category extends Component {
     render() {
         const categories = ['BUSINESS', 'ENTERTAINMENT', 'SPORTS', 'SCIENCE', 'TECHNOLOGY', 'HEALTH'];
 
-        return(
+        return (
             <div className="Category-wrapper">
                 <div>
                     {categories.map((category) => <div
