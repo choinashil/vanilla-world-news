@@ -45,7 +45,6 @@ class Results extends Component {
                         articles={this.props.articles}
                         clickList={this.toggleModalState.bind(this)}
                 />}
-
                 {this.state.isModalOpen &&
                 <Modal
                     articles={this.props.articles[this.state.articleIndexForModal]}

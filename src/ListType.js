@@ -9,7 +9,7 @@ class ListType extends Component {
     }
 
     render() {
-        return(
+        return (
             <div className="List-wrapper">
                 {this.props.articles.map((article, index) => <List
                     key={index}

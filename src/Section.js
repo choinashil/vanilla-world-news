@@ -28,7 +28,7 @@ class Section extends Component {
     }
 
     render() {
-        return(
+        return (
             <section
                 className="Section-wrapper"
                 onClick={this.closeFilters.bind(this)}

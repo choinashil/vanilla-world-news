@@ -37,7 +37,7 @@ class Modal extends Component {
     render() {
         const articles = this.props.articles;
 
-        return(
+        return (
             <div className="Modal-wrapper">
                 <div
                     className={this.state.isModalOpen ? "Modal-background Modal-background-fadeout" : "Modal-background"}

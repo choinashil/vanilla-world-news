@@ -23,7 +23,6 @@ class Title extends Component {
                     <div>NEWSPAPER / MAGAZINE / PUBLISHER</div>
                     <img src="https://static.thenounproject.com/png/429172-200.png" alt="" />
                 </div>
-
             </div>
         );
     }
