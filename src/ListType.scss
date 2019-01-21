@@ -1,30 +1,22 @@
 @import '_utils.scss';
 
-.list-wrapper {
+.List-wrapper {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
     align-items: center;
     width: 90%;
-    // height: 100%;
     font-family: 'Adamina', serif;
-    // height: 100px;
-    // background-color: powderblue;
 }
 
-.list {
+.List {
     display: flex;
     width: 60%;
-    border-bottom: $border;
     padding: 30px;
+    border-bottom: $border;
     cursor: pointer;
-    > div {
-        // border: 1px solid brown;
-    }
     &-img {
         width: 190px;
         height: 120px;
-        // border: 1px solid green;
         background-position: center;
         background-size: cover;
     }
@@ -34,18 +26,18 @@
         justify-content: center;
         padding: 0 20px;
         div:nth-child(1) {
-            font-size: 16px;
             padding-bottom: 5px;
+            font-size: 16px;
             color: $bk8;
         }
         div:nth-child(2) {
-            font-size: 12px;
             padding-bottom: 2px;
+            font-size: 12px;
             color: $bk6;
         }
         div:nth-child(3) {
             font-size: 12px;
             color: $bk6;
-        }    
+        }
     }
 }

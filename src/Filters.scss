@@ -2,61 +2,19 @@
 
 .Filters {
     display: flex;
-    // flex-direction: column;
     justify-content: flex-end;
     flex-wrap: wrap;
-    // height: calc(100vh + 500px);
     height: 100vh;
-    border-right: $border;
     overflow-y: scroll;
-    transition: width .4s;
-    font-family: 'Unna', serif;
     padding-top: 20px;
+    border-right: $border;
+    font-family: 'Unna', serif;
+    transition: width .4s;
     &-show {
         width: 20%;
     }
     &-hide {
         width: 0%;
-    }
-}
-
-.Calendar-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    // justify-content: space-around;
-    padding-top: 15px;
-    // border: 1px solid red;
-    margin-bottom: 10px;
-    div {
-        font-size: 16px;
-        margin-bottom: 10px;
-    }
-
-    > div {
-        display: flex;
-        flex-direction: row;
-        p {
-            // border: 1px solid pink;
-            font-size: 14px;
-            color: $bk7;
-            transform: translateY(-9px);
-            margin-right: 10px;
-            // border-bottom: $border;
-        }
-        input {
-            // border: 1px solid blue;
-            width: 120px;
-            height: 25px;
-            border: none;
-            outline: none;
-            border-bottom: $border;
-            // text-align: center;
-
-            color: $bk7;
-            font-family: 'Adamina', serif;
-        }    
     }
 }
 
@@ -67,32 +25,29 @@
     align-items: center;
     padding: 0 10px;
     .Source-title {
-        font-size: 16px;
         margin: 20px 0;
+        font-size: 16px;
     }
     > div:nth-child(2) {
         display: flex;
         flex-wrap: wrap;
         margin-bottom: 30px;
         .Source {
-            border: 1px solid $bk8;
-            border-radius: 20px;
-            padding: 5px 10px;
             display: inline-block;
             margin: 5px;
-            cursor: pointer;
+            padding: 5px 10px;
+            border: 1px solid $bk8;
+            border-radius: 20px;
             font-size: 12px;
+            cursor: pointer;
             &-title {
-                // border: 1px solid green;
-                text-align: center;
                 padding: 15px 0;
+                text-align: center;
             }
             &-selected {
                 background-color: $bk8;
-                color: #fff;    
+                color: #fff;
             }
-        }    
-    
+        }
     }
 }
-

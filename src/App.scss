@@ -1,36 +1,13 @@
-@import '_utils.scss';
-
-
-.app {
+.App {
     display: flex;
     width: 100vw;
     .content {
         transition: width .4s;
-    }
-    .content-wide {
-        width: 100%;
-    }
-    .content-narrow {
-        width: 80%;
-    }
-  }
-
-.Loading-icon {
-    > img {
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        animation: spin 2s infinite ease;
+        &-wide {
+            width: 100%;
+        }
+        &-narrow {
+            width: 80%;
+        }
     }
 }
-
-@keyframes spin {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
-}
-  

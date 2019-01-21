@@ -1,33 +1,10 @@
-@import '_utils.scss';
-
 .Section-wrapper {
-    // border: 3px dotted pink;
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
     > div {
         width: 90%;
     }
 }
-
-// .Loading-icon {
-//     width: 100vw;
-//     height: 100vh;
-//     background-color: $bk3;
-//     border: 5px solid red;
-//     display: fixed;
-//     top: 0;
-//     left: 0;
-//     > div {
-//         display: fixed;
-//         top: 50%;
-//         left: 50%;
-//         transform: translate(-50%, -50%);
-//         width: 100px;
-//         height: 100px;
-//         border: 10px solid blue;
-//         border-radius: 50%;
-//     }
-// }

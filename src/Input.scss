@@ -1,0 +1,128 @@
+@import '_utils.scss';
+
+.Input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 7px 0;
+    border-bottom: $border;
+    > div:nth-child(1) {
+        display: flex;
+    }
+}
+
+.filters-btn {
+    display: flex;
+    align-items: center;
+    margin: 0 15px;
+    padding-top: 8px;
+    color: $bk9;
+    cursor: pointer;
+    > div:nth-child(1) {
+        width: 20px;
+        margin-right: 10px;
+        div {
+            height: 2px;
+            margin-bottom: 4px;
+            background-color: $bk6;
+            transition: width .2s;
+        }
+    }
+    > div:nth-child(2) {
+        font-size: 13px;
+    }
+    &-more {
+        > div:nth-child(1) {
+            div:nth-child(1) {
+                width: 10px;
+            }
+            div:nth-child(2) {
+                width: 17px;
+            }
+            div:nth-child(3) {
+                width: 24px;
+                margin-bottom: 0;
+            }
+        }
+        &:hover > div:nth-child(1) > div:nth-child(1) {
+            width: 24px;
+        }
+        &:hover > div:nth-child(1) > div:nth-child(2) {
+            width: 17px;
+        }
+        &:hover > div:nth-child(1) > div:nth-child(3) {
+            width: 10px;
+        }
+    }
+    &-close {
+        > div:nth-child(1) {
+            div:nth-child(1) {
+                width: 24px;
+            }
+            div:nth-child(2) {
+                width: 17px;
+            }
+            div:nth-child(3) {
+                width: 10px;
+                margin-bottom: 0;
+            }
+        }
+        &:hover > div:nth-child(1) > div:nth-child(1) {
+            width: 10px;
+        }
+        &:hover > div:nth-child(1) > div:nth-child(2) {
+            width: 17px;
+        }
+        &:hover > div:nth-child(1) > div:nth-child(3) {
+            width: 24px;
+        }
+    }
+}
+
+.Input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+        margin: 0 5px;
+        font-size: 18px;
+        color: $bk6;
+        transform: translateY(3px);
+        cursor: pointer;
+    }
+    .Input {
+        height: 12px;
+        border-bottom: $border;
+        transition: width .3s ease;
+        input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            padding: 5px;
+            font-family: 'Unna', serif;
+            text-align: center;
+            font-size: 18px;
+            color: $bk6;
+        }
+        &-open {
+            width: 0px;
+            input {
+                display: none;
+            }
+        }
+        &-close {
+            width: 200px;
+            input {
+                display: block;
+            }
+        }
+    }
+}
+
+.today {
+    display: flex;
+    align-self: flex-end;
+    margin-right: 15px;
+    transform: translateY(-3px);
+}

@@ -1,31 +1,22 @@
 @import '_utils.scss';
 
 .Results-wrapper {
-    // font-family: 'Adamina', serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 30px;
-    // border: 1px solid orange;
-    > div {
-        // border: 1px solid green;
-    }
-
+    margin: 30px 0 100px 0;
     > div:nth-child(1) {
         display: flex;
         justify-content: flex-end;
-        // border: 1px solid green;
-        // padding-right: 100px;
         width: 60%;
         margin-bottom: 20px;
         font-family: 'Adamina', serif;
-        color: $bk6;
         font-size: 12px;
-        div {
+        color: $bk6;
+        i {
+            font-size: 20px;
             cursor: pointer;
         }
     }
-
 }
-

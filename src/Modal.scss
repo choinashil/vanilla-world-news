@@ -1,82 +1,71 @@
 @import '_utils.scss';
 
-.modal-wrapper {
+.Modal-wrapper {
     font-family: 'Unna', serif;
 }
 
-.modal-background {
+.Modal-background {
     width: 100vw;
     height: 100vh;
-    background-color: $bk9;
     position: fixed;
     top: 0;
     left: 0;
+    background-color: $bk9;
     &-fadeout {
         animation: fadeout .3s;
         animation-delay: .2s;
     }
 }
 
-.modal {
+.Modal {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    // border: 1px solid salmon;
-    // width: 50%;
-    // height: 70%;
-    // overflow: scroll;
-    background-color: #fff;
     position: fixed;
     padding: 30px 40px;
+    background-color: #fff;
     > div {
-        // border: 1px solid blue;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 80%;
     }
-    > div:nth-child(1) { // img
+    > div:nth-child(1) {
         padding: 10px 0;
-        // border: 1px solid orange;
         margin-bottom: 10px;
         img {
-            // max-width: 80%;
             max-height: 250px;
-            // max-height: 300px;
         }
     }
     > div:nth-child(2) {
         display: flex;
         flex-direction: column;
         > div {
-            // border: 1px solid green;
             margin-bottom: 13px;
         }
-        > div:nth-child(1) { // title
-            // border: 1px solid green;
+        > div:nth-child(1) {
             width: 90%;
-            font-size: 27px;
-            text-align: center;
             display: -webkit-box;
             overflow: hidden;
             max-height: 67px;
             text-overflow: ellipsis;
-            /* autoprefixer: ignore next */ 
+            /* autoprefixer: ignore next */
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
             color: $bk8;
+            font-size: 27px;
+            text-align: center;
         }
-        > div:nth-child(2) { // arthor, source, date
+        > div:nth-child(2) {
             display: flex;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             word-wrap: normal;
             div {
-                // border: 1px solid green;
-                color: $bk5;
                 margin-right: 20px;
+                color: $bk5;
             }
             div:nth-child(3) {
                 margin-right: 0;
@@ -107,18 +96,11 @@
         }
     }
 
-    // p::first-letter {
-    //       color: #c69c6d;
-    //       float: left;
-    //       font-size: 5em;
-    //       margin: 0 .2em 0 0;
-    // }
-
     &-up {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        animation: up .4s ease;   
+        animation: up .4s ease;
     }
     &-down {
         top: 100%;

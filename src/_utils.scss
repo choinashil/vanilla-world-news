@@ -1,15 +1,5 @@
-/* fonts */
-@font-face {
-    font-family: 'SeoulHangangM';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangM.woff') format('woff');
-    font-style: normal;
-    font-weight: normal;
-}
-
-
 /* variables */
-$header: #212f41f1;
-$point: #6c8fadcb;
+
 $border: 1px solid rgba(0, 0, 0, .4);
 
 $bk0: rgba(0, 0, 0, 0);
@@ -22,19 +12,10 @@ $bk6: rgba(0, 0, 0, .6);
 $bk7: rgba(0, 0, 0, .7);
 $bk8: rgba(0, 0, 0, .8);
 $bk9: rgba(0, 0, 0, .9);
+$bk95: rgba(0, 0, 0, .95);
 
-
-/* utils */
-.invisible {display: none;}
-
-.w0 {width: 0;}
-.w10 {width: 10%;}
-.w20 {width: 20%;}
-.w30 {width: 30%;}
-.w40 {width: 40%;}
-.w50 {width: 50%;}
-.w60 {width: 60%;}
-.w70 {width: 70%;}
-.w80 {width: 80%;}
-.w90 {width: 90%;}
-.w100 {width: 100%;}
+$wh40: rgba(255, 255, 255, .4);
+$wh60: rgba(255, 255, 255, .6);
+$wh75: rgba(255, 255, 255, .75);
+$wh90: rgba(255, 255, 255, .9);
+$wh95: rgba(255, 255, 255, .95);

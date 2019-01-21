@@ -1,0 +1,33 @@
+@import '_utils.scss';
+
+.Calendar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    > div:nth-child(1) {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    > div:nth-child(2), > div:nth-child(3) {
+        display: flex;
+        flex-direction: row;
+        p {
+            margin-right: 10px;
+            transform: translateY(-9px);
+            font-size: 14px;
+            color: $bk7;
+        }
+        input {
+            width: 120px;
+            height: 25px;
+            border: none;
+            outline: none;
+            border-bottom: $border;
+            font-family: 'Adamina', serif;
+            color: $bk7;
+        }
+    }
+}

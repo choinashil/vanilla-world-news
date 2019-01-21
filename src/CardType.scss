@@ -1,30 +1,72 @@
 @import '_utils.scss';
 
-
-.card-wrapper {
+.Card-wrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    width: 90%;
-    // background-color: pink;
+    justify-content: space-evenly;
+    width: 80%;
     font-family: 'Adamina', serif;
 }
 
-.card {
+.Card {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    width: 30%;
-    border: $border;
-    margin-bottom: 15px;
+    margin-bottom: 40px;
+    width: 40%;
     padding: 10px;
     cursor: pointer;
-
-    &-img {
-        width: 300px;
-        height: 200px;
-        background-position: center;
-        background-size: cover;
+    > div {
+        border: 1px solid $bk3;
+        overflow: hidden;
+        &:hover .Card-content{
+            background: $bk6;
+            transform: translate(0, -20px);
+        }
+        &:hover .Card-content div {
+            color: $wh75;
+        }
+        &:hover .Card-content div:nth-child(1) {
+            color: $wh95;
+        }
+        > div {
+            display: flex;
+            align-items: flex-end;
+            width: 410px;
+            height: 220px;
+            background-position: center;
+            background-size: cover;
+        }
+    }
+    &-content {
+        width: 80%;
+        padding: 10px 12px 10px 35px;
+        background-color: $bk5;
+        transform: translate(-20px, -20px);
+        transition: all .2s ease;
+        > div:nth-child(1) {
+            color: $wh90;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            overflow: hidden;
+            max-height: 45px;
+            text-overflow: ellipsis;
+            /* autoprefixer: ignore next */
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        > div:nth-child(2) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            word-wrap: normal;
+            font-size: 13px;
+            color: $wh60;
+            padding-top: 5px;
+            border-top: 1px solid $wh40;
+        }
+        > div:nth-child(3) {
+            font-size: 12px;
+            color: $wh60;
+        }
     }
 }
-

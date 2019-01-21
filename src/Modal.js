@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import './Modal.scss';
-import './_utils.scss';
 
 class Modal extends Component {
     constructor(props) {
@@ -14,12 +13,13 @@ class Modal extends Component {
     closeModal() {
         setTimeout(() => this.props.clickModal(), 500);
         this.setState(state => {
-            return {isModalOpen: !state.isModalOpen}
-        })
+            return {isModalOpen: !state.isModalOpen};
+        });
     }
 
     renderContent() {
         const articles = this.props.articles;
+
         return (
             <div>
                 <div>
@@ -36,14 +36,15 @@ class Modal extends Component {
 
     render() {
         const articles = this.props.articles;
+
         return(
-            <div className="modal-wrapper">
-                <div 
-                    className={this.state.isModalOpen ? "modal-background modal-background-fadeout" : "modal-background"}
+            <div className="Modal-wrapper">
+                <div
+                    className={this.state.isModalOpen ? "Modal-background Modal-background-fadeout" : "Modal-background"}
                     onClick={this.closeModal.bind(this)}
                 >
                 </div>
-                <div className={this.state.isModalOpen ? "modal modal-down" : "modal modal-up"}>
+                <div className={this.state.isModalOpen ? "Modal Modal-down" : "Modal Modal-up"}>
                     <div>
                         <img src={articles.urlToImage} alt={articles.title} />
                     </div>
@@ -64,15 +65,12 @@ class Modal extends Component {
     }
 
     componentDidMount() {
-        window.document.body.style.overflow="hidden";
+        window.document.body.style.overflow = "hidden";
     }
 
     componentWillUnmount() {
-        window.document.body.style.overflow="auto";
+        window.document.body.style.overflow = "auto";
     }
-
 }
 
-
 export default Modal;
-

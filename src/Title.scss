@@ -1,0 +1,31 @@
+@import '_utils.scss';
+
+.Title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 0;
+    border-bottom: $border;
+    > div:nth-child(1) {
+        font-family: 'Playfair Display', serif;
+        font-size: 50px;
+        font-weight: 900;
+        color: $bk8;
+        cursor: pointer;
+    }
+    > div:nth-child(2) {
+        display: flex;
+        height: 30px;
+        img {
+            width: 30px;
+            transform: translateY(-2px);
+        }
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+        }
+    }
+}
