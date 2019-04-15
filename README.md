@@ -19,6 +19,11 @@ $ yarn start (or npm start)
 # visit http://localhost:3000
 ```
 
+## Skills
+- React
+- Axios
+- Scss
+
 ## Features
 
 1. 검색어를 입력할 수 있는 검색창이 있습니다.
